@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name></display-name>	
+  
+   <servlet>
+    <servlet-name>PayecoServlet</servlet-name>
+    <servlet-class>com.payeco.servlet.PayecoServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PayecoServlet</servlet-name>
+    <url-pattern>/servlet/PayecoServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>CallBackServlet</servlet-name>
+    <servlet-class>com.payeco.servlet.CallBackServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CallBackServlet</servlet-name>
+    <url-pattern>/servlet/CallBackServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+    <servlet>
+    <servlet-name>AsynServlet</servlet-name>
+    <servlet-class>com.payeco.servlet.AsynServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AsynServlet</servlet-name>
+    <url-pattern>/servlet/AsynServlet</url-pattern>
+  </servlet-mapping>
+  
+  <!-- QrcodeGenneratorServlet -->
+  <servlet>
+    <servlet-name>QrcodeGenneratorServlet</servlet-name>
+    <servlet-class>com.payeco.servlet.QrcodeGenneratorServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>QrcodeGenneratorServlet</servlet-name>
+    <url-pattern>/servlet/QrcodeGenneratorServlet</url-pattern>
+  </servlet-mapping>
+  
+  <!-- ReckonBridgeServlet -->
+  <servlet>
+    <servlet-name>ReckonBridgeServlet</servlet-name>
+    <servlet-class>com.payeco.servlet.ReckonBridgeServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ReckonBridgeServlet</servlet-name>
+    <url-pattern>/third/OrderServerWeb</url-pattern>
+  </servlet-mapping>
+  
+  
+   <welcome-file-list>
+    <welcome-file>orderen.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
