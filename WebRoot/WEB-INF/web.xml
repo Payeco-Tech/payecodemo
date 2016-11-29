@@ -16,6 +16,17 @@
     <url-pattern>/servlet/PayecoServlet</url-pattern>
   </servlet-mapping>
   
+  <!-- PayecoServletNew -->
+  <servlet>
+    <servlet-name>PayecoServletNew</servlet-name>
+    <servlet-class>com.payeco.servlet.PayecoServletNew</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PayecoServletNew</servlet-name>
+    <url-pattern>/servlet/PayecoServletNew</url-pattern>
+  </servlet-mapping>
+  
   
    <servlet>
     <servlet-name>CallBackServlet</servlet-name>

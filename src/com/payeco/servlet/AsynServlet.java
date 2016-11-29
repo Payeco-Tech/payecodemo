@@ -17,9 +17,18 @@ import com.payeco.util.Toolkit;
 
 public class AsynServlet extends HttpServlet{
 
-	/**
-	 * 
-	 */
+	public static void main(String[] args) {
+		String merchantPwd1 = "123456";
+		String src1 = "0210 190011 0.01 170020 702016112500131282 20161125170020 0000 1472181543236 20161125170020 02";
+		String detail = "WX_JSAPI {\"is_subscribe\":\"Y\",\"trade_type\":\"JSAPI\",\"bank_type\":\"CFT\",\"total_fee\":\"1\",\"appid\":\"\",\"transaction_id\":\"4009172001201611250791089223\",\"nonce_str\":\"\",\"openid\":\"oZnHJv6tKHg_9GARd7E86JCbQ-1U\",\"return_code\":\"SUCCESS\",\"transactionFee\":1,\"time_end\":\"20161125170047\",\"result_code\":\"SUCCESS\",\"out_trade_no\":\"05702016112500131282\",\"tradeSuccess\":true,\"cash_fee\":\"1\",\"mch_id\":\"\",\"fee_type\":\"CNY\"}";
+		String src = src1 + " " + "" + " " + merchantPwd1;
+		String MAC = new MD5().getMD5ofStr(src);
+		System.out.println("MAC: "+MAC);
+		System.out.println("12DD26061CA7DC118783D0431F7CDC09");
+		//String orderState = getValue(xml,"OrderState").trim();
+		//if(MAC.equals(getValue(xml,"MAC"))){
+	}
+	
 	private static Logger logger = Logger.getLogger(AsynServlet.class.getName());
 	private static final long serialVersionUID = 1L;
 
@@ -61,9 +70,13 @@ public class AsynServlet extends HttpServlet{
 					+ getString(getValue(xml,"TerminalNo"))
 					+ getString(getValue(xml,"MerchantNo"))
 					+ getString(getValue(xml,"MerchantOrderNo"))
-					+ getString(getValue(xml,"OrderState")) + " " + merchantPwd;
-
-			String MAC = new MD5().getMD5ofStr(src);
+					+ getString(getValue(xml,"OrderState"))
+					+ getString(getValue(xml,"Channel"))
+					+ getString(getValue(xml,"Detail")) + " " + merchantPwd;
+			
+			System.out.println("src:\n"+src);
+			String MAC = new MD5().getMD5ofStr(src.toUpperCase());
+			System.out.println("\nMAC:\n"+MAC);
 			String orderState = getValue(xml,"OrderState").trim();
 			if(MAC.equals(getValue(xml,"MAC"))){
 				logger.info("mac 校验成功");

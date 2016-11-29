@@ -44,8 +44,9 @@ public class QrcodeRefresh {
 	public void  assemble(){
 		
 		try {
-			String url = "http://test.payeco.com:9080/QR/payeco/ApiPayecoServerRSA";
-
+			String url = "http://test.payeco.com:9080/PayEcoChannel/payeco/ApiPayecoServerRSA";
+			//String url = "http://test.payeco.com:9080/QR/payeco/ApiPayecoServerRSA";
+			//String url = "http://10.123.74.102:8082/payeco/ApiPayecoServerRSA";
 			String GDYILIAN_CERT_PUB_64="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String srcXml="";
@@ -62,7 +63,7 @@ public class QrcodeRefresh {
 			msg.setProcCode("3100");
 			msg.setProcessCode("310010");
 			msg.setMerchantNo(merchantNo);
-			msg.setOrderNo("702016111100130389");	//1462847066331  merchantOrderNo 
+			msg.setOrderNo("702016112500131271");	//1462847066331  merchantOrderNo 
 			msg.setAcqSsn(acqSsn);
 			msg.setTransDatetime(transDatetime);
 			String mac = msg.computeMac(merchantPwd);

@@ -37,14 +37,19 @@ public class PlaceOrder {
 	public String assemble(){
 		
 		try {
-			String url = "http://test.payeco.com:9080/QR/services/ApiV2ServerRSA";
+			//String url = "http://10.123.92.10:8082/services/ApiV2ServerRSA";
+			//String url = "http://10.123.74.102:8082/services/ApiV2ServerRSA";
+			//String url = "http://test.payeco.com:9080/QR/services/ApiV2ServerRSA";
 			//String url = "http://test.payeco.com:9080/pay/services/ApiV2ServerRSA";
+			String url = "http://test.payeco.com:9080/PayEcoChannel/services/ApiV2ServerRSA";
+			//String url = "http://10.123.1.56:9080/PayEcoChannel/services/ApiV2ServerRSA";
+			String asynAddress = "http://10.123.74.102:8080/payecodemo/servlet/AsynServlet";
 
 			String GDYILIAN_CERT_PUB_64="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String request_text = "";
 			String srcXml="";
-			String amount = "0.3";
+			String amount = "0.01";
 			String curcode = Toolkit.getCurrency("01");
 			String desc = "Test Description";
 			String remark = "";
@@ -69,6 +74,7 @@ public class PlaceOrder {
 			msg.setAmount(amount);
 			msg.setCurrency(curcode);
 			msg.setDescription(desc);
+			msg.setAsynAddress(asynAddress);
 			//新增订单来源
 			msg.setOrderFrom("30");		//30扫码
 			msg.setSdkExtData("{\"geelyUserId\":\"001221\", \"walletUserId\":\"10234\"}");

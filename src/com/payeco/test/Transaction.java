@@ -18,14 +18,15 @@ public class Transaction {
 	private static Logger logger = Logger.getLogger(Transaction.class.getName());
 	public static void main(String[] args) {
 		//orderQuery();
-		downFile();
+		//downFile();
+		orderQuash();
 	}
 	
 	public static void  orderQuash(){
 
 		try {
-			
-			String url = "http://test.payeco.com:9080/services/ApiV2ServerRSA";
+			String url = "http://10.123.74.102:8082/services/ApiV2ServerRSA";
+			//String url = "http://test.payeco.com:9080/services/ApiV2ServerRSA";
 			String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String acqSsn = new SimpleDateFormat("HHmmss").format(new Date());
@@ -36,8 +37,8 @@ public class Transaction {
 			msg.setVersion("2.1.0");
 			msg.setProcCode("0220");
 			msg.setProcessCode("290000");
-			msg.setMerchantNo("1462847066331");
-			msg.setMerchantOrderNo("20160530180933");
+			msg.setMerchantNo("1472181649022"); //1462847066331
+			msg.setMerchantOrderNo("20161118131108");  //20160530180933
 			msg.setAcqSsn(acqSsn);
 			msg.setTransDatetime(transDatetime);
 			String mac = msg.computeMac("123456");
@@ -87,7 +88,7 @@ public class Transaction {
 	public static void  adjustApply(){
 		try {
 			
-			String url = "http://10.123.65.20:9080/services/ApiV2ServerRSA";
+			String url = "http://10.123.65.20:9080/pay/services/ApiV2ServerRSA";
 			String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String acqSsn = new SimpleDateFormat("HHmmss").format(new Date());
@@ -212,13 +213,14 @@ public class Transaction {
 	public static void  orderQuery(){
 		try {
 			
-			String url = "http://10.123.65.20:9080/services/ApiV2ServerRSA";
+			//String url = "http://10.123.65.20:9080/services/ApiV2ServerRSA";
+			String url = "http://test.payeco.com:9080/pay/services/ApiV2ServerRSA";
 			String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String acqSsn = new SimpleDateFormat("HHmmss").format(new Date());
 			String transDatetime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 			
-			String merchantOrderNo = "20160601142102";
+			String merchantOrderNo = "630140510999300082510069";	//20160601142102
 		//	String amount = "";
 			//报文信息
 			MerchantMessage msg = new MerchantMessage();
@@ -226,7 +228,7 @@ public class Transaction {
 			msg.setProcCode("0120");
 			msg.setProcessCode("310000");
 			//msg.setAmount(amount);
-			msg.setMerchantNo("1462847066331");
+			msg.setMerchantNo("1472181543236");	//1462847066331
 			msg.setMerchantOrderNo(merchantOrderNo);
 			msg.setAcqSsn(acqSsn);
 			msg.setTransDatetime(transDatetime);

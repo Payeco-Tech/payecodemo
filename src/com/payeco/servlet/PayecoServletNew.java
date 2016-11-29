@@ -12,7 +12,7 @@ import com.payeco.util.Toolkit;
 
 
 
-public class PayecoServlet extends HttpServlet{
+public class PayecoServletNew extends HttpServlet{
 
 	/**
 	 * 
@@ -41,9 +41,10 @@ public class PayecoServlet extends HttpServlet{
 	public void  assemble(HttpServletRequest request, HttpServletResponse response){
 		
 		try {
-			String url = "http://test.payeco.com:9080/services/ApiV2ServerRSA";		//测试环境地址
+			//String url = "http://test.payeco.com:9080/services/ApiV2ServerRSA";		//测试环境地址
 			String synAddress = "http://test.payeco.com:9080/payecodemo/servlet/CallBackServlet";	//同步地址
-			String asynAddress = "http://10.123.74.102:8080/payecodemo/servlet/AsynServlet";			//异步地址
+			//String asynAddress = "http://10.123.65.20:9080/payecodemo/servlet/AsynServlet";			//异步地址
+			String asynAddress = "http://120.236.175.104:38080/servlet/AsynServlet";
 			String GDYILIAN_CERT_PUB_64="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String request_text = "";
@@ -58,8 +59,10 @@ public class PayecoServlet extends HttpServlet{
 			String acqSsn = new SimpleDateFormat("HHmmss").format(new Date());
 			String transDatetime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 			//商户号
-			String merchantNo = "1462847066331";	//1462847066331  1472181543236
-			String merchantPwd = "123456";
+			String merchantNo = (String)request.getParameter("merchantNo");
+			//url
+			String url = (String)request.getParameter("url");
+			String merchantPwd = request.getParameter("password");
 				
 			MerchantMessage msg = new MerchantMessage();
 			msg.setVersion("2.1.0");
