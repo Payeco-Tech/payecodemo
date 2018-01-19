@@ -51,6 +51,7 @@ public class MD5 {
     }
 
     public String getMD5ofStr(String inbuf) {
+    	inbuf = inbuf.toUpperCase();	//转换成大写后做MAC
         byte[] inbufBt = inbuf.getBytes(); //2012/3/30 lq 修改中文长度计算问题
         md5Init();
         md5Update(inbufBt, inbufBt.length);
@@ -332,9 +333,31 @@ public class MD5 {
     }
 
     public static void main(String args[]) {
-    	String str = "0200 190000 0.3 20140309210429 210429 reference 102020000025 20140309210429" + " " + "123456";
-        MD5 m = new MD5();
+    	//String str = "0200 190000 0.3 20140309210429 210429 reference 102020000025 20140309210429" + " " + "123456哈哈";
+        
+    	String str = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"+
+    				"<x:NetworkRequest xmlns:x=\"http://www.payeco.com\" xmlns:xsi=\"http://www.w3.org\">\n"+
+    				"    <Version>2.1.0</Version>\n"+
+    				"    <AcqSsn>215426</AcqSsn>\n"+
+    				"    <ProcessCode>310000</ProcessCode>\n"+
+    				"    <MerchantOrderNo>630140510999300082510069</MerchantOrderNo>\n"+
+    				"    <MAC>859A378FD3162359C1ADA6577C6998AE</MAC>\n"+
+    				"    <TransDatetime>20170325215426</TransDatetime>\n"+
+    				"    <Remark>找不到原交易</Remark>\n"+
+    				"    <RespCode>T411</RespCode>\n"+
+    				"    <ProcCode>0130</ProcCode>\n"+
+    				"    <MerchantNo>1472181543236</MerchantNo>\n"+
+    				"</x:NetworkRequest>";
+    	
+    	MD5 m = new MD5();
         String md5Str = m.getMD5ofStr(str);
         System.out.println(md5Str);
+        try {
+			String md5Byt = m.getMD5ofByte(str.getBytes("UTF-8"));
+			System.out.println(md5Byt);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

@@ -60,6 +60,50 @@
     <url-pattern>/servlet/QrcodeGenneratorServlet</url-pattern>
   </servlet-mapping>
   
+   <!-- QrcodeRefreshServlet -->
+  <servlet>
+    <servlet-name>QrcodeRefreshServlet</servlet-name>
+    <servlet-class>com.payeco.servlet.QrcodeRefreshServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>QrcodeRefreshServlet</servlet-name>
+    <url-pattern>/servlet/QrcodeRefreshServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <!-- EbankOrderServlet -->
+  <servlet>
+    <servlet-name>EbankOrderServlet</servlet-name>
+    <servlet-class>com.payeco.servlet.EbankOrderServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>EbankOrderServlet</servlet-name>
+    <url-pattern>/servlet/EbankOrderServlet</url-pattern>
+  </servlet-mapping>
+  
+   <!-- UnionQrcodeOrderSyncServlet -->
+  <servlet>
+    <servlet-name>UnionQrcodeOrderSyncServlet</servlet-name>
+    <servlet-class>com.payeco.servlet.UnionQrcodeOrderSyncServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UnionQrcodeOrderSyncServlet</servlet-name>
+    <url-pattern>/servlet/UnionQrcodeOrderSyncServlet</url-pattern>
+  </servlet-mapping>
+  
+  <!-- WXJSAPIServlet -->
+  <servlet>
+    <servlet-name>WXJSAPIServlet</servlet-name>
+    <servlet-class>com.payeco.servlet.WXJSAPIServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>WXJSAPIServlet</servlet-name>
+    <url-pattern>/wxjsapi</url-pattern>
+  </servlet-mapping>
   <!-- ReckonBridgeServlet -->
   <servlet>
     <servlet-name>ReckonBridgeServlet</servlet-name>

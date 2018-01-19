@@ -25,8 +25,9 @@ public class Transaction {
 	public static void  orderQuash(){
 
 		try {
-			String url = "http://10.123.74.102:8082/services/ApiV2ServerRSA";
-			//String url = "http://test.payeco.com:9080/services/ApiV2ServerRSA";
+			//String url = "http://10.123.74.102:8082/services/ApiV2ServerRSA";
+			//String url = "http://test.payeco.com:9080/pay/services/ApiV2ServerRSA";
+			String url = "https://dnaserver.payeco.com/services/ApiV2ServerRSA";
 			String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String acqSsn = new SimpleDateFormat("HHmmss").format(new Date());
@@ -36,12 +37,12 @@ public class Transaction {
 			MerchantMessage msg = new MerchantMessage();
 			msg.setVersion("2.1.0");
 			msg.setProcCode("0220");
-			msg.setProcessCode("290000");
-			msg.setMerchantNo("1472181649022"); //1462847066331
-			msg.setMerchantOrderNo("20161118131108");  //20160530180933
+			msg.setProcessCode("290001");
+			msg.setMerchantNo("502020002898"); //1462847066331  502020002898(7EABCA2C8FFB4BF5)
+			msg.setMerchantOrderNo("20170901141952");  //20160530180933
 			msg.setAcqSsn(acqSsn);
 			msg.setTransDatetime(transDatetime);
-			String mac = msg.computeMac("123456");
+			String mac = msg.computeMac("7EABCA2C8FFB4BF5");
 			msg.setMac(mac);
 
 			String srcXml = msg.toXml();
@@ -214,7 +215,8 @@ public class Transaction {
 		try {
 			
 			//String url = "http://10.123.65.20:9080/services/ApiV2ServerRSA";
-			String url = "http://test.payeco.com:9080/pay/services/ApiV2ServerRSA";
+			String url = "http://127.0.0.1:8082/services/ApiV2ServerRSA";
+			//String url = "http://test.payeco.com:9080/pay/services/ApiV2ServerRSA";
 			String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String acqSsn = new SimpleDateFormat("HHmmss").format(new Date());
@@ -237,13 +239,14 @@ public class Transaction {
 			msg.setMac(mac);
 
 			String srcXml = msg.toXml();
+			logger.info(srcXml);
  
-			String key = Toolkit.random(24);
+			String key = "1234567890qwertyuiopasdf";//Toolkit.random(24);
 			String tmpXml = Toolkit.signWithMD5(key, srcXml, pubKey);
-		
+			//logger.info(tmpXml);
 			TransactionClient  tc = new TransactionClient(url);
 			String result = tc.transact(tmpXml);
-			logger.info(result);
+			logger.info("result:"+result);
 			
 			String xml = Toolkit.verify(key,result);
 			logger.info(xml);

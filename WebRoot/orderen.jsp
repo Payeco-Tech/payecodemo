@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>选择支付方式</title>
+<title>同步订单信息</title>
 <style type="text/css">
 span{
     color:red;
@@ -13,13 +13,9 @@ span{
 </head>
 <body>
 <center>
-	<form action="/payecodemo/servlet/PayecoServlet" method="post" target="_blank">
+	<form action="/payecodemo/servlet/PayecoServlet" method="post" ><!-- target="_blank" -->
 	<table style="margin-top:100px;">
 	<tr><td align="right">currency</td><td align="left"> CNY-人民币</td></tr>
-	<tr><td align="right">merchantNo</td><td align="left"><input type="text" name="merchantNo" id="merchantNo" value=""/><span>*</span></td></tr>
-	<tr><td align="right">password</td><td align="left"><input type="text" name="password" id="password" value="123456"/><span>*</span></td></tr>
-	<tr><td align="right">url</td><td align="left"><input type="text" name="url" id="url" 
-	value="http://test.payeco.com:9080/pay/services/ApiV2ServerRSA"/><span>*</span></td></tr>
 	<tr><td align="right">amount</td><td align="left"><input type="text" name="money" id="money" value="0.3"/><span>*</span></td></tr>
 	<tr><td align="right">order descript</td><td align="left"><input type="text" name="desc" id="desc" value="Test Decription"/><span>*</span></td></tr>
     <tr><td align="right">order remark</td><td align="left"><input type="text" name="remark" id="remark" value=""/></td></tr>

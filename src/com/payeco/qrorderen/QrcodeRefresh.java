@@ -35,16 +35,17 @@ public class QrcodeRefresh {
 	private static Logger logger = Logger.getLogger(Transaction.class.getName());
 	
 	public static void main(String[] args) {
-		new QrcodeRefresh().assemble();
+		new QrcodeRefresh().assemble("","123456");
 	}
 	
 	/**
 	 * 二维码刷新接口demo，返回格式为xml
 	 */
-	public void  assemble(){
+	public String assemble(String orderNo, String merchantNo){
 		
 		try {
-			String url = "http://test.payeco.com:9080/PayEcoChannel/payeco/ApiPayecoServerRSA";
+			String url = "http://test.payeco.com:9080/pay/services/ApiPayecoServerRSA";
+			//String url = "http://test.payeco.com:9080/pay/services/ApiPayecoServerRSA";
 			//String url = "http://test.payeco.com:9080/QR/payeco/ApiPayecoServerRSA";
 			//String url = "http://10.123.74.102:8082/payeco/ApiPayecoServerRSA";
 			String GDYILIAN_CERT_PUB_64="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
@@ -56,19 +57,21 @@ public class QrcodeRefresh {
 			String transDatetime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 			
 			//商户号
-			String merchantNo = "1472181543236";	// 302020000058   502040000005  502050000326 
-			
+			//String merchantNo = "1472181543236";	// 302020000058   502040000005  502050000326 
+			/*if(null==orderNo || "".equals(orderNo.trim())) {
+				orderNo = "702016120700131835";
+			}*/
 			MerchantMessage msg = new MerchantMessage();
 			msg.setVersion("2.1.0");
 			msg.setProcCode("3100");
 			msg.setProcessCode("310010");
 			msg.setMerchantNo(merchantNo);
-			msg.setOrderNo("702016112500131271");	//1462847066331  merchantOrderNo 
+			msg.setOrderNo(orderNo);	//1462847066331  merchantOrderNo 
 			msg.setAcqSsn(acqSsn);
 			msg.setTransDatetime(transDatetime);
 			String mac = msg.computeMac(merchantPwd);
 			msg.setMac(mac);
-		
+	
 		    srcXml = msg.toXml();
 		    
 			String encryptKey = Toolkit.random(24);
@@ -80,11 +83,11 @@ public class QrcodeRefresh {
 			
 			resp = Toolkit.verify(encryptKey, resp);
 			logger.info("解密后：\n"+resp);  
-			
+			return resp;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		return "";
 	}
 	
 }

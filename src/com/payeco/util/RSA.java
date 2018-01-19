@@ -22,6 +22,11 @@ import javax.crypto.Cipher;
 public class RSA {
 
     public static void main(String[] args) throws IOException {
+		String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
+
+    	byte[] keyEnc = RSA.encrypt("123456".getBytes("UTF-8"), pubKey);
+        String keyEncrypt= Toolkit.base64Encode(keyEnc);
+        System.out.print("keyEncrypt:\n"+keyEncrypt);
     }
 
     public static RSAPublicKey getPublicKey(String keyPath) throws Exception {

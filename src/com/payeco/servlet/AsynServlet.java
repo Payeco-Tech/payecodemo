@@ -11,22 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.payeco.qrorderen.PlaceOrder;
 import com.payeco.test.Transaction;
 import com.payeco.util.MD5;
 import com.payeco.util.Toolkit;
 
+/**
+ * 接收异步通知demo
+ * @author user
+ */
 public class AsynServlet extends HttpServlet{
 
 	public static void main(String[] args) {
-		String merchantPwd1 = "123456";
-		String src1 = "0210 190011 0.01 170020 702016112500131282 20161125170020 0000 1472181543236 20161125170020 02";
-		String detail = "WX_JSAPI {\"is_subscribe\":\"Y\",\"trade_type\":\"JSAPI\",\"bank_type\":\"CFT\",\"total_fee\":\"1\",\"appid\":\"\",\"transaction_id\":\"4009172001201611250791089223\",\"nonce_str\":\"\",\"openid\":\"oZnHJv6tKHg_9GARd7E86JCbQ-1U\",\"return_code\":\"SUCCESS\",\"transactionFee\":1,\"time_end\":\"20161125170047\",\"result_code\":\"SUCCESS\",\"out_trade_no\":\"05702016112500131282\",\"tradeSuccess\":true,\"cash_fee\":\"1\",\"mch_id\":\"\",\"fee_type\":\"CNY\"}";
-		String src = src1 + " " + "" + " " + merchantPwd1;
-		String MAC = new MD5().getMD5ofStr(src);
-		System.out.println("MAC: "+MAC);
-		System.out.println("12DD26061CA7DC118783D0431F7CDC09");
-		//String orderState = getValue(xml,"OrderState").trim();
-		//if(MAC.equals(getValue(xml,"MAC"))){
+		//String src = "0210 190011 0.01 000052 502017041050224656 102700000025|channel.wechat 0000 502040000155 052017041000000098 02 SHA256WITHRSA";
+		String src = "0210 190011 0.1 20170614111543 111515 502017061409373834 0000 502040000098 14974101131350 02";
+		String ext = " WX_NATIVE {\"tradeNo\":\"4001442001201706145660585748\",\"buyerId\":\"\",\"buyerPayAmount\":\"0.10\",\"totalAmount\":\"0.10\",\"discount\":\"\"} 71DFB993673B4556";
+		String MAC = new MD5().getMD5ofStr(src+ext);	//getMD5ofStr()方法将src转换成大写
+		System.out.println("\nMAC:\n"+MAC);
 	}
 	
 	private static Logger logger = Logger.getLogger(AsynServlet.class.getName());
@@ -48,11 +49,18 @@ public class AsynServlet extends HttpServlet{
         response.setCharacterEncoding(CharSet);
 		PrintWriter out = response.getWriter();
         String response_text = request.getParameter("response_text");
-       
+        
+        //转发到我本机
+//        try {
+//			PlaceOrder.sendAndGet("http://10.123.65.35:8080/payecodemo/servlet/AsynServlet", response_text.getBytes("utf-8"));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+        
 		String xml = "";
 		if(response_text != null && !"".equals(response_text)){
 			
-                        //如果解出来的xml是乱码的，请将这个步骤给注释掉，有的服务器程序会自动做UrlDecode
+            //如果解出来的xml是乱码的，请将这个步骤给注释掉，有的服务器程序会自动做UrlDecode
 			//String urlText = URLDecoder.decode(response_text, CharSet);
 			xml = new String(new sun.misc.BASE64Decoder().decodeBuffer(response_text),CharSet);
 			logger.info("异步报文"+xml);
@@ -71,11 +79,11 @@ public class AsynServlet extends HttpServlet{
 					+ getString(getValue(xml,"MerchantNo"))
 					+ getString(getValue(xml,"MerchantOrderNo"))
 					+ getString(getValue(xml,"OrderState"))
-					+ getString(getValue(xml,"Channel"))
+					+ getString(getValue(xml,"Channel"))		//微信支付宝异步通知增加Channel和Detail字段
 					+ getString(getValue(xml,"Detail")) + " " + merchantPwd;
 			
 			System.out.println("src:\n"+src);
-			String MAC = new MD5().getMD5ofStr(src.toUpperCase());
+			String MAC = new MD5().getMD5ofStr(src);	//getMD5ofStr()方法将src转换成大写
 			System.out.println("\nMAC:\n"+MAC);
 			String orderState = getValue(xml,"OrderState").trim();
 			if(MAC.equals(getValue(xml,"MAC"))){
@@ -87,7 +95,7 @@ public class AsynServlet extends HttpServlet{
 					
 				}else if("05".equals(orderState)){
 					//payment fail
-					String errorCode = getValue(xml,"RespCode");
+					String errorCode = getValue(xml,"RespCode"); 
 					
 				}else{
 					//payment in-process
@@ -100,7 +108,7 @@ public class AsynServlet extends HttpServlet{
 			out.print("0000");
 			out.flush();
 			out.close();
-		}
+		} 
 	}
 	private String getValue(String xml, String name){
 		if(xml==null || "".equals(xml.trim()) 

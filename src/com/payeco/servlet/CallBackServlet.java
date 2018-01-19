@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.payeco.util.MD5;
 import com.payeco.util.Toolkit;
 
+/**
+ * 同步通知处理逻辑demo
+ * @author user
+ */
 public class CallBackServlet extends HttpServlet{
 
 	/**
@@ -35,11 +39,11 @@ public class CallBackServlet extends HttpServlet{
         response.setCharacterEncoding(CharSet);
 		PrintWriter out = response.getWriter();
         String response_text = request.getParameter("response_text");
-       
+       System.out.println("response_text:"+response_text);
 		String xml = "";
 		if(response_text != null && !"".equals(response_text)){
 			
-                        //如果解出来的xml是乱码的，请将这个步骤给注释掉，有的服务器程序会自动做UrlDecode
+            //如果解出来的xml是乱码的，请将这个步骤给注释掉，有的服务器程序会自动做UrlDecode
 			String urlText = URLDecoder.decode(response_text, CharSet);
 			xml = new String(new sun.misc.BASE64Decoder().decodeBuffer(urlText),CharSet);
 			out.println("response_text Base64 decode after<br/>");

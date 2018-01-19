@@ -27,6 +27,7 @@ public class MerchantMessage  {
 	private String merchantNo="";//商户号
 	private String merchantOrderNo="";//商户订单号
 	private String orderFrom="";//订单来源
+	private String disneyFrom="";//disney订单来源
 	private String language="";//语种
 	private String description="";//订单描述
 	private String orderType="";//下单类型
@@ -35,6 +36,7 @@ public class MerchantMessage  {
 	private String transDatetime="";//传输时间
 	private String uiLanguage = "";//UI语言
 	private String transData="";//其他数据
+	private String payInfo = "";//同步订单的支付信息
 	private String synAddress="";//同步地址
 	private String asynAddress="";//异步地址
 	
@@ -45,8 +47,12 @@ public class MerchantMessage  {
 	private String orderNo="";//下单返回的订单号
  
 	private String mac="";//校验码
+	private String ipAddress="";
+	private String IDCardName = "";
+	private String IDCardNo = "";
 
    private String sdkExtData="";
+   private String supportPayType="";
 
 	public String getVersion() {
 		return version;
@@ -171,6 +177,14 @@ public class MerchantMessage  {
 			this.orderFrom = orderFrom;
 		}
 	}
+	public String getDisneyFrom() {
+		return disneyFrom;
+	}
+
+	public void setDisneyFrom(String disneyFrom) {
+		this.disneyFrom = disneyFrom;
+	}
+
 	public String getLanguage() {
 		return language;
 	}
@@ -253,6 +267,14 @@ public class MerchantMessage  {
 	
 	
 	
+	public String getPayInfo() {
+		return payInfo;
+	}
+
+	public void setPayInfo(String payInfo) {
+		this.payInfo = payInfo;
+	}
+
 	public String getRespCode() {
 		return this.respCode;
 	}
@@ -410,6 +432,7 @@ public class MerchantMessage  {
         createElement(doc, root, getAcqSsn(), "AcqSsn");
         createElement(doc, root, getTransDatetime(), "TransDatetime");
         createElement(doc, root, getTransData(), "TransData");
+        createElement(doc, root, getPayInfo(), "PayInfo");
         createElement(doc, root, getReference(), "Reference");
         createElement(doc, root, getRemark(), "Remark");
         createElement(doc, root, getSynAddress(), "SynAddress");
@@ -419,7 +442,12 @@ public class MerchantMessage  {
         createElement(doc, root, getUpsNo(), "UpsNo");
         createElement(doc, root, getTsNo(), "TsNo");
         createElement(doc, root, getOrderFrom(), "OrderFrom");
+        createElement(doc, root, getDisneyFrom(), "DisneyFrom");
         createElement(doc, root, getSdkExtData(), "SdkExtData");
+        createElement(doc, root, getIpAddress(), "IpAddress");
+        createElement(doc, root, getIDCardNo(), "IDCardNo");
+        createElement(doc, root, getIDCardName(), "IDCardName");
+        createElement(doc, root, getSupportPayType(), "SupportPayType");
         createElement(doc, root, getMac(), "Mac");
         return Toolkit.getStringFromDocument(doc);
 	}
@@ -438,6 +466,38 @@ public class MerchantMessage  {
 
 	public void setSdkExtData(String sdkExtData) {
 		this.sdkExtData = sdkExtData;
+	}
+
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+
+	public String getIDCardName() {
+		return IDCardName;
+	}
+
+	public void setIDCardName(String iDCardName) {
+		IDCardName = iDCardName;
+	}
+
+	public String getIDCardNo() {
+		return IDCardNo;
+	}
+
+	public void setIDCardNo(String iDCardNo) {
+		IDCardNo = iDCardNo;
+	}
+
+	public String getSupportPayType() {
+		return supportPayType;
+	}
+
+	public void setSupportPayType(String supportPayType) {
+		this.supportPayType = supportPayType;
 	}
 	
 

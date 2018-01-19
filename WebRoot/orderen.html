@@ -8,14 +8,130 @@ span{
     color:red;
 }
 </style>
-
+<script type="text/JavaScript">
+       function payTypeSelect(){
+        var payType = document.getElementById("payType").value;
+        var tempPayType = document.getElementById("tempPayType").value;
+        document.getElementById(tempPayType).style.display="none";
+        document.getElementById(payType).style.display="";
+        document.getElementById("tempPayType").value = payType;
+       }
+</script>
 </head>
 <body>
-<center>
+<center style="margin-top:50px;">
+	<p>支付方式：<select id="payType" style="width:300px;height:25px;" onchange="payTypeSelect()">
+  		<option value ="PF_ALI_QRCODE">支付宝_扫码下单</option>
+  		<option value ="PF_ALI_SCAN_BAR">支付宝_条码支付</option>
+  		<option value="PF_WX_SCAN_BAR">微信_条码支付</option>
+  		<option value="PF_WX_NATIVE">微信_扫码下单</option>
+  		<option value="MS_WX_JSAPI">微信_公众号支付</option>
+	</select></p>
+	<input type="hidden" id="tempPayType" value="PF_ALI_QRCODE"></input>
+</center>
+<center id="PF_ALI_QRCODE">
 	<form action="/payecodemo/servlet/QrcodeGenneratorServlet" method="post" target="_blank">
+	<p>商户编号：<input type="text" name="merchantNo" style="width:300px;height:25px;" value=""></input></p>
+	<p>商户密钥：<input type="text" name="merchantPwd" style="width:300px;height:25px;" value=""></input></p>
+	<p>测试金额：<input type="text" name="amount" style="width:300px;height:25px;" value="0.01"></input></p>
+	<table style="margin-top:50px;">
+	<tr><td colspan="2" align="left" style="padding-left:0px;">
+		<input type="hidden" name="orderType" value="PF_ALI_QRCODE"></input>
+		<input type="submit" value="支付宝扫码下单" style="width:180px;height:50px;border-radius:6px;color: #fff;background-color:#F4A100;border-color: #F4A100;font-size: 18px;line-height: 1.33;">
+	</td></tr>
+	</table>
+	</form>
+</center >
+<center id="PF_ALI_SCAN_BAR" style="margin-top:50px;display:none;">
+	<form action="/payecodemo/servlet/QrcodeGenneratorServlet" method="post" target="_blank">
+	<p>商户编号：<input type="text" name="merchantNo" style="width:300px;height:25px;" value=""></input></p>
+	<p>商户密钥：<input type="text" name="merchantPwd" style="width:300px;height:25px;" value=""></input></p>
+	<p>测试金额：<input type="text" name="amount" style="width:300px;height:25px;" value="0.01"></input></p>
+	<p>授权条码：<input type="text" name="authCode" style="width:300px;height:25px;" value="请填入授权码数字"></input></p>
+	<table style="margin-top:0px;">
+	<tr><td colspan="2" align="left" style="padding-left:0px;">
+		<input type="hidden" name="orderType" value="PF_ALI_SCAN_BAR"></input>
+		<input type="submit" value="支付宝条码支付" style="width:180px;height:50px;border-radius:6px;color: #fff;background-color:#F4A100;border-color: #F4A100;font-size: 18px;line-height: 1.33;">
+	</td></tr>
+	</table>
+	</form>
+</center>
+<center id="PF_WX_SCAN_BAR" style="margin-top:50px;display:none;">
+	<form action="/payecodemo/servlet/QrcodeGenneratorServlet" method="post" target="_blank">
+	<p>商户编号：<input type="text" name="merchantNo" style="width:300px;height:25px;" value=""></input></p>
+	<p>商户密钥：<input type="text" name="merchantPwd" style="width:300px;height:25px;" value=""></input></p>
+	<p>测试金额：<input type="text" name="amount" style="width:300px;height:25px;" value="0.01"></input></p>
+	<p>授权条码：<input type="text" name="authCode" style="width:300px;height:25px;" value="请填入授权码数字"></input></p>
+	<table style="margin-top:0px;">
+	<tr><td colspan="2" align="left" style="padding-left:0px;">
+		<input type="hidden" name="orderType" value="PF_WX_SCAN_BAR"></input>
+		<input type="submit" value="微信条码支付" style="width:180px;height:50px;border-radius:6px;color: #fff;background-color:#F4A100;border-color: #F4A100;font-size: 18px;line-height: 1.33;">
+	</td></tr>
+	</table>
+	</form>
+</center>
+<center id="MS_WX_JSAPI" style="margin-top:50px;display:none;">
+	<form action="/payecodemo/servlet/QrcodeGenneratorServlet" method="post" target="_blank">
+	<p>商户编号：<input type="text" name="merchantNo" style="width:300px;height:25px;" value=""></input></p>
+	<p>商户密钥：<input type="text" name="merchantPwd" style="width:300px;height:25px;" value=""></input></p>
+	<p>测试金额：<input type="text" name="amount" style="width:300px;height:25px;" value="0.01"></input></p>
+	<p>openid：<input type="text" name="openid" style="width:500px;height:30px;" value="请在微信APP中打开“https://wxrelay.payeco.com/test.jsp”,选择“易联国际”获取openid"></input></p>
+	<table style="margin-top:20px;">
+	<tr><td colspan="2" align="left" style="padding-left:0px;">
+		<input type="hidden" name="orderType" value="MS_WX_JSAPI"></input>
+		<input type="submit" value="微信公众号下单" style="width:180px;height:50px;border-radius:6px;color: #fff;background-color:#F4A100;border-color: #F4A100;font-size: 18px;line-height: 1.33;">
+	</td></tr>
+	</table>
+	</form>
+</center>
+<center id="PF_WX_NATIVE" style="display:none;">
+	<form action="/payecodemo/servlet/QrcodeGenneratorServlet" method="post" target="_blank">
+	<p>商户编号：<input type="text" name="merchantNo" style="width:300px;height:25px;" value=""></input></p>
+	<p>商户密钥：<input type="text" name="merchantPwd" style="width:300px;height:25px;" value=""></input></p>
+	<p>测试金额：<input type="text" name="amount" style="width:300px;height:25px;" value="0.01"></input></p>
+	<table style="margin-top:50px;">
+	<tr><td colspan="2" align="left" style="padding-left:0px;">
+		<input type="hidden" name="orderType" value="PF_WX_NATIVE"></input>
+		<input type="submit" value="微信扫码下单" style="width:180px;height:50px;border-radius:6px;color: #fff;background-color:#F4A100;border-color: #F4A100;font-size: 18px;line-height: 1.33;">
+	</td></tr>
+	</table>
+	</form>
+</center>
+<center id="BC_WX_NATIVE" style="display:none;">
+	<form action="/payecodemo/servlet/QrcodeGenneratorServlet" method="post" target="_blank">
+	<p>商户编号：<input type="text" name="merchantNo" style="width:300px;height:25px;" value=""></input></p>
+	<p>商户密钥：<input type="text" name="merchantPwd" style="width:300px;height:25px;" value=""></input></p>
+	<p>测试金额：<input type="text" name="amount" style="width:300px;height:25px;" value="0.01"></input></p>
 	<table style="margin-top:100px;">
 	<tr><td colspan="2" align="left" style="padding-left:0px;">
+		<input type="hidden" name="orderType" value="BC_WX_NATIVE"></input>
+		<input type="submit" value="BC微信扫码下单" style="width:180px;height:50px;border-radius:6px;color: #fff;background-color:#F4A100;border-color: #F4A100;font-size: 18px;line-height: 1.33;">
+	</td></tr>
+	</table>
+	</form>
+</center>
+<center id="TRIP_SCAN" style="display:none;">
+	<form action="/payecodemo/servlet/QrcodeGenneratorServlet" method="post" target="_blank">
+	<p>商户编号：<input type="text" name="merchantNo" style="width:300px;height:25px;" value=""></input></p>
+	<p>商户密钥：<input type="text" name="merchantPwd" style="width:300px;height:25px;" value=""></input></p>
+	<p>测试金额：<input type="text" name="amount" style="width:300px;height:25px;" value="0.01"></input></p>
+	<table style="margin-top:100px;">
+	<tr><td colspan="2" align="left" style="padding-left:0px;">
+		<input type="hidden" name="orderType" value="TRIP_SCAN"></input>
 		<input type="submit" value="三码合一下单" style="width:120px;height:50px;border-radius:6px;color: #fff;background-color:#F4A100;border-color: #F4A100;font-size: 18px;line-height: 1.33;">
+	</td></tr>
+	</table>
+	</form>
+</center>
+<center id="MS_ALI_QRCODE" style="display:none;">
+	<form action="/payecodemo/servlet/QrcodeGenneratorServlet" method="post" target="_blank">
+	<p>商户编号：<input type="text" name="merchantNo" style="width:300px;height:25px;" value=""></input></p>
+	<p>商户密钥：<input type="text" name="merchantPwd" style="width:300px;height:25px;" value=""></input></p>
+	<p>测试金额：<input type="text" name="amount" style="width:300px;height:25px;" value="0.01"></input></p>
+	<table style="margin-top:100px;">
+	<tr><td colspan="2" align="left" style="padding-left:0px;">
+		<input type="hidden" name="orderType" value="MS_ALI_QRCODE"></input>
+		<input type="submit" value="支付宝扫码下单" style="width:180px;height:50px;border-radius:6px;color: #fff;background-color:#F4A100;border-color: #F4A100;font-size: 18px;line-height: 1.33;">
 	</td></tr>
 	</table>
 	</form>

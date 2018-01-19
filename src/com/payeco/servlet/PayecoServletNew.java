@@ -44,7 +44,11 @@ public class PayecoServletNew extends HttpServlet{
 			//String url = "http://test.payeco.com:9080/services/ApiV2ServerRSA";		//测试环境地址
 			String synAddress = "http://test.payeco.com:9080/payecodemo/servlet/CallBackServlet";	//同步地址
 			//String asynAddress = "http://10.123.65.20:9080/payecodemo/servlet/AsynServlet";			//异步地址
-			String asynAddress = "http://120.236.175.104:38080/servlet/AsynServlet";
+			//String asynAddress = "http://10.123.76.53:8080/payecodemo/servlet/AsynServlet";	
+			//String synAddress = "http://10.123.76.53:8080/payecodemo/servlet/CallBackServlet";	//同步地址
+			//String synAddress = "http://10.123.76.42:8080/payecodemo/servlet/CallBackServlet";	//同步地址
+			
+			String asynAddress = "http://test.payeco.com:9080/payecodemo/servlet/AsynServlet";
 			String GDYILIAN_CERT_PUB_64="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String request_text = "";
@@ -53,6 +57,8 @@ public class PayecoServletNew extends HttpServlet{
 			String curcode = Toolkit.getCurrency("01");
 			String desc = new String(request.getParameter("desc").getBytes("ISO-8859-1"),"UTF-8");
 			String remark = new String(request.getParameter("remark").getBytes("ISO-8859-1"),"UTF-8");
+			String currency = new String(request.getParameter("currency"));
+			String orderfrom = request.getParameter("orderfrom");
 			
 			//String merchantPwd = "123456";
 			String merchantOrderNo = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -73,10 +79,15 @@ public class PayecoServletNew extends HttpServlet{
 			msg.setAcqSsn(acqSsn);
 			msg.setTransDatetime(transDatetime);
 			msg.setAmount(amount);
-			msg.setCurrency(curcode);
+			msg.setCurrency(currency);
 			msg.setDescription(desc);
 			msg.setSynAddress(synAddress);
 			msg.setAsynAddress(asynAddress);
+			msg.setOrderFrom("28");		//PC收银台
+			msg.setOrderFrom(orderfrom);
+			msg.setSupportPayType("|1|2|");	//值：|1|2|3|4|5|  //|银联快捷支付|微信扫码|支付宝扫码|三码合一|银联在线支付|
+			//msg.setIDCardNo("4524281991111611121221");
+			//msg.setIDCardName("李春光");
 			String mac = msg.computeMac(merchantPwd);
 			msg.setMac(mac);
 		

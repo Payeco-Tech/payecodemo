@@ -15,7 +15,7 @@ import com.payeco.util.Toolkit;
  * 下单页面demo
  * @author user
  */
-public class PayecoServlet extends HttpServlet{
+public class EbankPaySimulateServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,6 @@ public class PayecoServlet extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		assemble(req, resp);
 		
 	}
 	
@@ -41,15 +40,14 @@ public class PayecoServlet extends HttpServlet{
 	public void  assemble(HttpServletRequest request, HttpServletResponse response){
 		
 		try {
-			String url = "http://test.payeco.com:9080/pay/services/ApiV2ServerRSA";		//测试环境地址
-			//String url = "http://10.123.107.231:8080/services/ApiV2ServerRSA";
+			String url = "http://test.payeco.com:9080/services/ApiV2ServerRSA";		//测试环境地址
 			String synAddress = "http://test.payeco.com:9080/payecodemo/servlet/CallBackServlet";	//同步地址
 			String asynAddress = "http://test.payeco.com:9080/payecodemo/servlet/AsynServlet";			//异步地址
 			String GDYILIAN_CERT_PUB_64="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ1fKGMV/yOUnY1ysFCk0yPP4bfOolC/nTAyHmoser+1yzeLtyYsfitYonFIsXBKoAYwSAhNE+ZSdXZs4A5zt4EKoU+T3IoByCoKgvpCuOx8rgIAqC3O/95pGb9n6rKHR2sz5EPT0aBUUDAB2FJYjA9Sy+kURxa52EOtRKolSmEwIDAQAB";
 			
 			String request_text = "";
 			String srcXml="";
-			String amount = "0.01";	//request.getParameter("money");
+			String amount = request.getParameter("money");
 			String curcode = Toolkit.getCurrency("01");
 			String desc = new String(request.getParameter("desc").getBytes("ISO-8859-1"),"UTF-8");
 			String remark = new String(request.getParameter("remark").getBytes("ISO-8859-1"),"UTF-8");
@@ -59,7 +57,7 @@ public class PayecoServlet extends HttpServlet{
 			String acqSsn = new SimpleDateFormat("HHmmss").format(new Date());
 			String transDatetime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 			//商户号
-			String merchantNo = "002050000031";	//1462847066331  1472181543236 1489060885289
+			String merchantNo = "1462847066331";	//1462847066331  1472181543236
 			String merchantPwd = "123456";
 				
 			MerchantMessage msg = new MerchantMessage();
@@ -75,7 +73,6 @@ public class PayecoServlet extends HttpServlet{
 			msg.setDescription(desc);
 			msg.setSynAddress(synAddress);
 			msg.setAsynAddress(asynAddress);
-			msg.setOrderFrom("37");
 			String mac = msg.computeMac(merchantPwd);
 			msg.setMac(mac);
 		

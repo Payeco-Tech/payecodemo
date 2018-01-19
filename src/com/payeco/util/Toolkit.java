@@ -135,8 +135,11 @@ public class Toolkit {
 		       
 		 
 		        MD5 md5 = new MD5();
-	            String strSign = md5.getMD5ofByte(src.getBytes("UTF-8"));
+		        //src = "<?xml version=\"1.0\" encoding=\"utf-8\"?><x:NetworkRequest xmlns:x=\"http://www.payeco.com\" xmlns:xsi=\"http://www.w3.org\"><Version>2.1.0</Version><ProcCode>0200</ProcCode><ProcessCode>190011</ProcessCode><Amount>0.3</Amount><Currency>HKD</Currency><MerchantNo>1472181543236</MerchantNo><MerchantOrderNo>20161222165756</MerchantOrderNo><Description>Test Decription</Description><AcqSsn>165756</AcqSsn><TransDatetime>20161222165756</TransDatetime><SynAddress>http://test.payeco.com:9080/payecodemo/servlet/CallBackServlet</SynAddress><AsynAddress>http://10.123.65.35:8080/payecodemo/servlet/AsynServlet</AsynAddress><OrderFrom>28</OrderFrom><Mac>F8FEAE8B8CE1D000EAF30312194B50EC</Mac></x:NetworkRequest>";
+	            //src = "<?xml version=\"1.0\" encoding=\"utf-8\"?><x:NetworkRequest xmlns:x=\"http://www.payeco.com\" xmlns:xsi=\"http://www.w3.org\"><Version>2.1.0</Version><ProcCode>0200</ProcCode><ProcessCode>190011</ProcessCode><Amount>0.3</Amount><Currency>HKD</Currency><MerchantNo>1472181543236</MerchantNo><MerchantOrderNo>20161222165756</MerchantOrderNo><Description>Test Decription</Description><AcqSsn>165756</AcqSsn><TransDatetime>20161222165756</TransDatetime><SynAddress>http://test.payeco.com:9080/payecodemo/servlet/CallBackServlet</SynAddress><AsynAddress>http://10.123.65.35:8080/payecodemo/servlet/AsynServlet</AsynAddress><OrderFrom>28</OrderFrom><Mac>F8FEAE8B8CE1D000EAF30312194B50EC</Mac></x:NetworkRequest>";
+		        String strSign = md5.getMD5ofByte(src.getBytes("UTF-8"));
 	            String srcSign = Toolkit.base64Encode(strSign.getBytes("UTF-8"));
+	            //System.out.println("strSign:"+strSign+"\nsrcSign:"+srcSign);
 	            
                 String version = "MD5";
 		        String tData = Toolkit.base64Encode(version.getBytes("UTF-8"));
@@ -278,6 +281,7 @@ public class Toolkit {
 	        keyBt = keyPara.getBytes("UTF-8");
 	        byte[] srcBt = TripleDes.decrypt(keyBt, srcEnc);
 	        String src = new String(srcBt, "UTF-8");
+	        System.out.println("\nsrc:"+src.replace("\n    ", "")+"\n");
 	      
             MD5 md5 = new MD5();
             String strSign = md5.getMD5ofByte(srcBt);
@@ -308,5 +312,32 @@ public class Toolkit {
 		public static String getString(String src) {
 			   return (Toolkit.isNullOrEmpty(src) ? "" : (" " + src.trim()));
 		}
+
+		public static String trims(String str) {
+			// TODO Auto-generated method stub
+			if(null == str) {
+				return "";
+			}
+			return str.trim();
+		}
+
+		public static boolean isNotBlank(String str) {
+			// TODO Auto-generated method stub
+			return !isNullOrEmpty(str);
+		}
+
+		public static boolean isNumeric(String str){  
+			for (int i = str.length();--i>=0;){    
+				if (!Character.isDigit(str.charAt(i))){  
+					return false;  
+				}  
+			}  
+			return true;  
+		}
+
+		public static boolean isNotEmpty(String str) {
+			// TODO Auto-generated method stub
+			return !isNullOrEmpty(str);
+		}  
 
 }
