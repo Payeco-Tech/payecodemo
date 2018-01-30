@@ -1,4 +1,4 @@
-package com.payeco.test;
+package com.payeco.trans;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,7 +17,7 @@ public class TransactionClient {
     private int timeout = 300000;
 
 	 /**
-     * @param 发送报文方法
+     * @param request
      * */
     public String transact(String request) throws Exception {
     	
